@@ -6,16 +6,16 @@
 
 # Variables
 # get your city id at https://openweathermap.org/find and replace
-city_id=524901
+city_id=
 
 # you can use this or replace with yours
-api_key=78bb6c389a8cb41deb9bd59d582ca322
+api_key=
 
 # choose between metric for Celcius or imperial for fahrenheit
 unit=metric
 
 # i'm not sure it will support all languange, 
-lang=en
+lang=ru
 
 # Main command
 url="api.openweathermap.org/data/2.5/weather?id=${city_id}&appid=${api_key}&cnt=5&units=${unit}&lang=${lang}"
