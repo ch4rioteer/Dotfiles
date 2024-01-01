@@ -1,0 +1,115 @@
+{
+    "position": "top",
+    "layer": "top",
+    "height": 10,
+    "margin-bottom": 0,
+    "margin-left": 10,
+    "width": 1910,
+    "modules-left": ["custom/launcher", "hyprland/workspaces", "custom/playerctl"],
+    "modules-center": ["clock"],
+    "modules-right": ["tray", "hyprland/language", "pulseaudio", "network", "bluetooth", "battery"],
+    // Modules configuration
+	"clock": {
+		"format": "{:%d %b | %H:%M}",
+		"tooltip": "true",
+        	"tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        	"format-alt": "{:%d %B %Y }"
+	},
+	
+
+	"hyprland/workspaces": {
+        "disable-scroll": false,
+        "on-scroll-up": "hyprctl dispatch workspace -1",
+        "on-scroll-down": "hyprctl dispatch workspace +1",
+		"format": "{icon}",
+		"on-click": "activate",
+		"format-icons": {
+			"1": "",
+			"2": "",
+			"3": "",
+			"4": "",
+			"5": "",
+			"6": "󰓓",
+			//"urgent": "",
+			//"active": "",
+			//"default": ""
+			},
+		"sort-by-number": true,
+		},
+
+    "custom/playerctl": {
+      "format": "{icon} <span>{}</span>",
+      "return-type": "json",
+      "max-length": 100,
+      "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}} - {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+      "on-click-middle": "playerctl play-pause",
+      "on-click": "playerctl previous",
+      "on-click-right": "playerctl next",
+      "format-icons": {
+        "Playing": "<span foreground='#CDB0EE'> </span>",
+        "Paused": "<span foreground='#321D4F'> </span>"
+      },
+    },
+
+	"battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+		},
+        "format":"{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄 {capacity}%",
+        "format-alt": "{icon} {time}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": ["󰂎", "󰁻", "󰁾", "󰂁", "󰁹"],
+		"on-click": "wlogout" 
+	},
+	
+	"network": {
+        	"format-wifi": "󰤨",
+        	"format-ethernet": "󰈀",
+        	"format-linked": " {ifname} (No IP)",
+        	"format-disconnected": "󰤭",
+        	"format-alt": "󰌗 {ifname}: {ipaddr}/{cidr}",
+          "tooltip-format": "{essid}",
+        //  "on-click-right": "nm-connection-editor"
+	"on-click-right": "kitty -e nmtui"
+	},
+
+	"tray": {
+		"icon-size": 16,
+		"spacing": 5
+	},
+
+	"hyprland/language": {
+	   	 "format": "{short}",
+	},
+
+	"pulseaudio": {
+		"format": "{icon}",
+        	"format-muted": "󰝟",
+		"format-icons": {
+			"default": ["󰕿", "󰖀", "󰕾"]
+		},
+		"on-click": "pavucontrol",
+		"tooltip-format": "{volume}%"
+   	},
+
+	"bluetooth": {
+  		"format": " ",
+    		"format-disabled": "!",
+		"format-alt": "bluetooth: {status}",
+		"on-click-right": "foot bluetoothctl",
+		"tooltip-format": "{status}"
+	},
+
+	"custom/launcher": {
+    		"format": "󰣇",
+		//"on-click": "bash $HOME/.config/rofi/launcher.sh",
+		"on-click": "wofi --show drun",
+		//"on-click-right": "bash $HOME/.config/rofi/run.sh"  
+		"on-click-right": "wofi --show run"  
+		}
+	},
