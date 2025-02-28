@@ -1,0 +1,119 @@
+# МЕНЮ
+super + space
+	rofi -config .config/rofi/menu.rasi -show drun
+
+# ТЕРМИНАЛ
+super + Return
+	kitty
+
+# СКРИНШОТ ЭКРАНА С КОПИЕЙ В БУФЕР ОБМЕНА
+@Print
+	scrot -f $HOME'/Изображения/Скриншоты/%Y-%m-%d-%H%M%S_$wx$h_scrot.png' \
+	-e 'xclip -selection clipboard -t image/png -i $f'
+
+# СКРИНШОТ ОБЛАСТИ ЭКРАНА
+super + shift + s
+	scrot -s -f $HOME'/Изображения/Скриншоты/%Y-%m-%d-%H%M%S_$wx$h_scrot.png' \
+	-e 'xclip -selection clipboard -t image/png -i $f'
+
+# СКРИНШОТ ОКНА
+shift + @Print
+	scrot -u -f $HOME'/Изображения/Скриншоты/%Y-%m-%d-%H%M%S_$wx$h_scrot.png' \
+	-e 'xclip -selection clipboard -t image/png -i $f'
+
+# TUI ФАЙЛОВЫЙ МЕНЕДЖЕР
+super + n
+    kitty -e yazi
+
+# БЛОКИРОВКА ЭКРАНА
+super + l
+	betterlockscreen -l --show-layout
+
+# ПЕРЕЗАГРУЗИТЬ КОНФИГ SXHKD
+super + e
+        pkill -USR1 -x sxhkd
+
+# ВЫЙТИ/ПЕРЕЗАГРУЗИТЬ BSPWM
+super + shift + {q,r}
+        bspc {quit,wm -r}
+
+# ПЕРЕЗАГРУЗКА
+super + ctrl + r
+        reboot
+
+# ВЫКЛЮЧЕНИЕ
+super + ctrl + p
+        poweroff
+
+# СМЕНА АКТИВНОГО ОКНА
+super + {_,shift + }c
+	bspc node -f {next,prev}.local.!hidden.window
+
+
+# ПОМЕНЯТЬ СТАТУС ОКНА НА /ТАЙЛОВОЕ/ПСЕВДО ТАЙЛОВОЕ/ПЛАВАЮЩЕЕ/ПОЛНОЭКРАННОЕ
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+	bspc node -g {marked,locked,sticky,private}
+
+# ВЫБРАТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
+super + alt + {Left,Down,Up,Right}
+	bspc node -p {west,south,north,east}
+
+# ОТМЕНИТЬ НАПРАВЛЕНИЕ В КОТОРОМ ОТКРОЕТСЯ НОВОЕ ОКНО
+super + alt + space
+	bspc node -p cancel
+
+# ПЕРЕКЛЮЧИТСЯ НА ВОРКСПЕЙС ИЛИ ПЕРЕТАЩИТЬ НА НЕГО АКТИВНОЕ ОКНО
+super + {_,shift + }{1-9,0}
+	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# ЗАКРЫТЬ ОКНО ИЛИ УБИТЬ ЕГО
+super + {_, shift + }w
+	bspc node -{c}
+
+# ПЕРЕМЕЩЕНИЕ ТАЙЛИНГОВЫХ ОКОН
+super + {_,shift + }{Left,Down,Up,Right}
+	bspc node -{f,s} {west,south,north,east}
+
+# РЕСАЙЗ ТАЙЛИНГОВЫХ ОКОН
+super + ctrl + {Left,Down,Up,Right}
+	{bspc node -z left -20 0; bspc node -z right -20 0, \
+	bspc node -z bottom 0 20; bspc node -z top 0 20, \
+	bspc node -z bottom 0 -20; bspc node -z top 0 -20, \ 
+	bspc node -z left 20 0; bspc node -z right 20 0}
+
+#РЕСАЙЗА ПЛАВАЮЩИХ ОКОН
+alt + ctrl + {Left,Down,Up,Right}
+	{bspc node -z right -20 20, \
+	bspc node -z bottom 20 20, \
+	bspc node -z bottom 20 -20, \
+	bspc node -z right 20 20}
+
+#ПЕРЕМЕЩЕНИЕ ПЛАВАЮЩИХ ОКОН 
+ctrl + shift + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+#FN
+XF86AudioMute
+	amixer set Master toggle
+
+XF86AudioRaiseVolume
+	amixer set Master 5%+ unmute
+
+XF86AudioLowerVolume
+	amixer set Master 5%- unmute
+
+XF86ScreenSaver
+	/usr/local/bin/lock
+
+XF86MonBrightnessUp
+	light -A 5
+
+XF86MonBrightnessDown
+	light -U 5
+
+XF86WLAN
+	rfkill toggle wlan
+
+XF86Bluetooth
+	rfkill toggle bluetooth
