@@ -1,0 +1,10 @@
+[Unit]
+Description=Battery power consumption alert
+
+[Service]
+ExecStart=/home/auriga/.local/share/bin/power_warning.sh
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target
