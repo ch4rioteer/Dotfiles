@@ -1,9 +1,0 @@
-[Unit]
-Description=Battery Level Notifications
-
-[Service]
-ExecStart=/home/auriga/.local/share/bin/battery_notify.sh
-Restart=always
-
-[Install]
-WantedBy=default.target
